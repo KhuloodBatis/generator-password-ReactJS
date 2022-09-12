@@ -1,7 +1,5 @@
 import "./App.css"
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Slider from '@mui/material/Slider';
 import * as React from 'react';
 import FormGroup from '@mui/material/FormGroup';
@@ -14,6 +12,10 @@ import { numbers, uppercaseLetters, lowercaseLetters, specialSymbols } from './C
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { COPY_SUCCESS } from './message'
+import { Typography } from "@mui/material";
+
+
+
 
 
 
@@ -21,7 +23,7 @@ function App() {
 
   const [password, setPassword] = useState('');
   const [passwordLength, setPasswordLength] = useState(20);
-  const [uppercase, setUppercase] = useState(true);
+  const [uppercase, setUppercase] = useState(false);
   const [lowercase, setLowercase] = useState(false);
   const [number, setNumber] = useState(false);
   const [symbols, setSymbols] = useState(false);
@@ -109,61 +111,65 @@ function App() {
 
 
   return (
-    <div style={{ backgroundColor: '#e0e0e0' }}>
-      <React.Fragment  >
-        <CssBaseline />
-        <Container sx={{ backgroundColor: '#e0e0e0', height: '100vh', width: '200vh', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }} >
-          <h1 style={{ marginTop: '200px' }} > Password Generator</h1>
-          <Box sx={{
-            backgroundColor: '#fafafa', height: '30vh', width: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '-200px', boxShadow: '2px 2px #607d8b'
-          }}>
-            <h3 style={{ marginTop: '20px' }} > Password Length</h3>
-            <Slider defaultValue={passwordLength}
-              onChange={(e) => setPasswordLength(e.target.value)} min={4} max={15} aria-label="Default" valueLabelDisplay="auto" sx={{ width: '60vh', marginTop: '90px' }} />
-            <h3 style={{ marginTop: '20px' }} > Group label</h3>
-            <FormGroup sx={{ display: 'flex', flexDirection: 'row', marginTop: '40px' }}>
-              <FormControlLabel control={<Checkbox checked={uppercase}
-                onChange={(e) => setUppercase(e.target.checked)} />} label="Uppercase" />
-              <FormControlLabel control={<Checkbox checked={lowercase} onChange={(e) => setLowercase(e.target.checked)} />} label="Lowercase" />
-              <FormControlLabel control={<Checkbox checked={number} onChange={(e) => setNumber(e.target.checked)} />} label="Numbers" />
-              <FormControlLabel control={<Checkbox checked={symbols} onChange={(e) => setSymbols(e.target.checked)} />} label="Symbols" />
-            </FormGroup>
-          </Box>
+    <Box display={'flex'} justifyContent={'center'} bgcolor={'#e9e9e9'} minHeight={"100vh"} paddingTop={'0px'}
+      alignItems={'flex-start'}
+      flexDirection={'column'}
+      alignItems={'center'} >
 
-          <Box sx={{
-            backgroundColor: '#fafafa', height: '7vh', width: '80vh', display: 'flex', flexDirection: 'row', alignItems: 'end', marginTop: '-230px', boxShadow: '2px 2px #607d8b', padding: '20px'
-          }}>
-            <div style={{ width: '280px' }}>
-              <span style={{ fontSize: "20px", fontWeight: 'bold' }}>{password}</span>
-            </div>
+      <Typography variant={"h2"} fontSize={'32px'} fontFamily={'lnter,sans-serif'} marginBottom={'26px'}>
+        Password Generator
+      </Typography>
+      <Box height={150} width={'420px'} bgcolor={'white'} borderRadius={1}
+        padding={2}
+        boxShadow={'.25px 2px #bdbdbd'} marginBottom={'15px'} >
+        <Typography variant={"h2"} fontSize={'10px'} fontFamily={'lnter,sans-serif'} marginBottom={'26px'} marginLeft={'170px'} marginTop={'2px'} style={{ fontWeight: 'bold' }} >
+          Password Length
+        </Typography>
+        <Slider aria-label="Small" style={{ width: '250px', height: '3px', marginLeft: '80px', marginTop: '20px' }} defaultValue={passwordLength}
+          onChange={(e) => setPasswordLength(e.target.value)} min={4} max={30} valueLabelDisplay="on">
 
+        </Slider>
+        <Typography variant={"h2"} fontSize={'11px'} fontFamily={'lnter,sans-serif'} marginBottom={'5px'} marginLeft={'184px'} marginTop={'5px'} style={{ fontWeight: 'bold' }} >
+          Group label
+        </Typography>
 
+        <FormGroup sx={{ display: 'flex', flexDirection: 'row', marginLeft: '30px' }} >
+          <FormControlLabel control={<Checkbox defaultChecked size="small" checked={uppercase}
+            onChange={(e) => setUppercase(e.target.checked)} />} label={<span style={{ fontSize: '12px', marginLeft: '-4px' }}>{"Uppercase"}</span>} />
+          <FormControlLabel control={<Checkbox defaultChecked size="small" checked={lowercase} onChange={(e) => setLowercase(e.target.checked)} />} label={<span style={{ fontSize: '12px', marginLeft: '-4px' }}>{"Lowercase"}</span>} />
+          <FormControlLabel control={<Checkbox defaultChecked size="small" checked={number} onChange={(e) => setNumber(e.target.checked)} />} label={<span style={{ fontSize: '12px', marginLeft: '-4px' }}>{"Numbers"}</span>} />
+          <FormControlLabel control={<Checkbox defaultChecked size="small" checked={symbols} onChange={(e) => setSymbols(e.target.checked)} />} label={<span style={{ fontSize: '12px', marginLeft: '-4px' }}>{"Symbols"}</span>} />
+        </FormGroup>
 
+      </Box>
+      <Box height={20} width={'420px'} bgcolor={'white'} borderRadius={1}
+        padding={2}
+        boxShadow={'.25px 2px #bdbdbd'} sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridTemplateAreas: "textPassword.Icon" }} >
 
-            <div style={{ marginLeft: '500px', display: 'flex', flexDirection: 'row' }}>
-              <button onClick={handleCopyPassword} style={{ backgroundColor: 'white', borderStyle: 'none', cursor: 'pointer' }}><ContentCopyIcon /></button>
+        <Box sx={{ gridRow: '1', gridColumn: 'span 2' }}><Typography>{password}</Typography></Box>
 
-              <button onClick={handelGeneratePassword} style={{ backgroundColor: 'white', borderStyle: 'none', cursor: 'pointer' }}><CachedIcon /></button>
-            </div>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-            {/* Same as */}
-            <ToastContainer />
-          </Box>
+        <Box sx={{ gridRow: '1', gridColumn: '4 / 5' }}> <button onClick={handleCopyPassword} style={{ backgroundColor: 'white', borderStyle: 'none', cursor: 'pointer' }}><ContentCopyIcon style={{ color: 'gray', fontSize: '19px' }} /></button>
 
-        </Container>
-      </React.Fragment>
-    </div>
+          <button onClick={handelGeneratePassword} style={{ backgroundColor: 'white', borderStyle: 'none', cursor: 'pointer' }}><CachedIcon style={{ color: 'gray', fontSize: '19px' }} /></button></Box>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <ToastContainer />
+      </Box>
+
+    </Box>
   );
 }
 
 export default App;
+
+
+
