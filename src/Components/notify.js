@@ -1,5 +1,6 @@
 import React from 'react'
 import { toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 
 const notify = (message, hasError = false) => {
 
@@ -24,9 +25,6 @@ const notify = (message, hasError = false) => {
             progress: undefined,
         });
     }
-
-
-
 
 
     return (
