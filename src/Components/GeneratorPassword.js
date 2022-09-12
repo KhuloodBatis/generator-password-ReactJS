@@ -3,15 +3,16 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import CachedIcon from '@mui/icons-material/Cached';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { useState } from 'react'
 import { numbers, uppercaseLetters, lowercaseLetters, specialSymbols } from '../Services/Characters'
-import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { COPY_SUCCESS } from '../Services/message'
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import { Typography } from "@mui/material";
+import notify from '../Components/notify'
+import { ToastContainer } from 'react-toastify'
 
 const GeneratorPassword = () => {
 
@@ -74,31 +75,7 @@ const GeneratorPassword = () => {
         newText.remove()
     }
 
-    const notify = (message, hasError = false) => {
 
-        if (hasError) {
-            toast.error(message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        } else {
-            toast(message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        }
-
-    }
     const handleCopyPassword = (e) => {
 
         if (password === '') {
@@ -146,9 +123,9 @@ const GeneratorPassword = () => {
 
                 <Box sx={{ gridRow: '1', gridColumn: '4 / 5' }}> <button onClick={handleCopyPassword} style={{ backgroundColor: 'white', borderStyle: 'none', cursor: 'pointer' }}><ContentCopyIcon style={{ color: 'gray', fontSize: '19px' }} /></button>
 
-                    <button onClick={handelGeneratePassword} style={{ backgroundColor: 'white', borderStyle: 'none', cursor: 'pointer' }}><CachedIcon style={{ color: 'gray', fontSize: '19px' }} /></button></Box>
+                    <button onClick={handelGeneratePassword} style={{ backgroundColor: 'white', borderStyle: 'none', cursor: 'pointer' }}><AutorenewIcon style={{ color: 'gray', fontSize: '19px', transform: "rotateZ(60deg)" }} /></button></Box>
                 <ToastContainer
-                    position="top-right"
+                    position="top-center"
                     autoClose={5000}
                     hideProgressBar={false}
                     newestOnTop={false}
